@@ -12,8 +12,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
         .container {
             max-width: 600px;
@@ -31,6 +33,16 @@
             top: -10px;
             right: 10px;
             z-index: 1;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .copy-button {
+                top: 5px;
+                right: 5px;
+            }
         }
     </style>
 </head>
