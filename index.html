@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES 加密解密与随机密钥生成器</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #result {
+            margin-top: 20px;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body onload="generateDefaultKey()">
+
+<div class="container">
+    <h1 class="text-center">AES 加密解密与随机密钥生成器</h1>
+    <form>
+        <div class="form-group">
+            <label for="message">消息:</label>
+            <textarea class="form-control" id="message" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="key">密钥:</label>
+            <input type="text" class="form-control" id="key">
+        </div>
+        <div class="form-group">
+            <label for="keyLength">密钥长度:</label>
+            <select class="form-control" id="keyLength">
+                <option value="128">128 位</option>
+                <option value="192">192 位</option>
+                <option value="256">256 位</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-secondary btn-block" onclick="generateRandomKey()">生成随机密钥</button>
+        <button type="button" class="btn btn-primary btn-block" onclick="encryptMessage()">加密消息</button>
+        <button type="button" class="btn btn-secondary btn-block" onclick="decryptMessage()">解密消息</button>
+    </form>
+    <div id="result" class="mt-4">
+        <label for="output">结果:</label>
+        <textarea class="form-control" id="output" rows="4" readonly></textarea>
+        <button class="btn btn-outline-secondary copy-button" onclick="copyToClipboard()">复制</button>
+    </div>
+</div>
+
+<script>
+    function generateRandomKey() {
+        const length = 64; // Always generate a 64-character key
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            result += chars[randomIndex];
+        }
+        document.getElementById('key').value = result;
+    }
+
+    function generateDefaultKey() {
+        const defaultLength = 64; // Default to 64 characters
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < defaultLength; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            result += chars[randomIndex];
+        }
+        document.getElementById('key').value = result;
+        document.getElementById('keyLength').value = 256;
+    }
+
+    function encryptMessage() {
+        const message = document.getElementById('message').value;
+        const key = document.getElementById('key').value;
+        const keyLength = parseInt(document.getElementById('keyLength').value, 10) / 8; // Convert bits to bytes
+        const finalKey = CryptoJS.enc.Utf8.parse(key.substring(0, keyLength)); // Ensure correct key length
+        
+        if (message && key) {
+            const iv = CryptoJS.lib.WordArray.random(16);
+            const encrypted = CryptoJS.AES.encrypt(message, finalKey, { iv: iv });
+            const encryptedMessage = iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+            document.getElementById('output').value = encryptedMessage;
+        } else {
+            document.getElementById('output').value = '请输入消息和密钥。';
+        }
+    }
+
+    function decryptMessage() {
+        const encryptedMessage = document.getElementById('message').value;
+        const key = document.getElementById('key').value;
+        const keyLength = parseInt(document.getElementById('keyLength').value, 10) / 8; // Convert bits to bytes
+        const finalKey = CryptoJS.enc.Utf8.parse(key.substring(0, keyLength)); // Ensure correct key length
+
+        if (encryptedMessage && key) {
+            try {
+                const decodedMessage = CryptoJS.enc.Base64.parse(encryptedMessage);
+                const iv = CryptoJS.lib.WordArray.create(decodedMessage.words.slice(0, 4));
+                const ciphertext = CryptoJS.lib.WordArray.create(decodedMessage.words.slice(4));
+                const decrypted = CryptoJS.AES.decrypt({ ciphertext: ciphertext }, finalKey, { iv: iv });
+                const originalMessage = decrypted.toString(CryptoJS.enc.Utf8);
+                document.getElementById('output').value = originalMessage;
+            } catch (e) {
+                document.getElementById('output').value = '解密失败。请检查您的密钥和消息。';
+            }
+        } else {
+            document.getElementById('output').value = '请输入加密消息和密钥。';
+        }
+    }
+
+    function copyToClipboard() {
+        const output = document.getElementById('output');
+        output.select();
+        document.execCommand('copy');
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
