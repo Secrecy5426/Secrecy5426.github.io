@@ -1,0 +1,52 @@
+[
+  {
+    "title": "科技巨头发布突破性人工智能模型",
+    "category": "科技",
+    "state": "published"
+  },
+  {
+    "title": "全球气候变化会议达成新协议",
+    "category": "环境",
+    "state": "draft"
+  },
+  {
+    "title": "新冠疫苗研究取得重大进展",
+    "category": "健康",
+    "state": "published"
+  },
+  {
+    "title": "国际足联宣布2030年世界杯主办国",
+    "category": "体育",
+    "state": "published"
+  },
+  {
+    "title": "著名艺术家回顾展在国家美术馆开幕",
+    "category": "文化",
+    "state": "scheduled"
+  },
+  {
+    "title": "经济学家预测来年全球经济走势",
+    "category": "经济",
+    "state": "draft"
+  },
+  {
+    "title": "新型可再生能源技术投入商业使用",
+    "category": "科技",
+    "state": "published"
+  },
+  {
+    "title": "国际太空站迎来首位来自非洲的宇航员",
+    "category": "科学",
+    "state": "scheduled"
+  },
+  {
+    "title": "畅销小说改编电影票房创新高",
+    "category": "娱乐",
+    "state": "published"
+  },
+  {
+    "title": "研究显示地中海饮食可能延长寿命",
+    "category": "健康",
+    "state": "draft"
+  }
+]
