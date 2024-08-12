@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理框架</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #sidebar {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .content {
+            padding: 20px;
+        }
+        .sidebar-nav .nav-link {
+            color: #333;
+            padding: .5rem 1rem;
+        }
+        .sidebar-nav .nav-link:hover {
+            background-color: #e9ecef;
+        }
+        .sidebar-nav .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .sidebar-nav .nav-link[data-bs-toggle="collapse"]::after {
+            content: "\f077";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            float: right;
+        }
+        .sidebar-nav .nav-link[data-bs-toggle="collapse"].collapsed::after {
+            content: "\f078";
+        }
+        .sidebar-nav .submenu {
+            padding-left: 1rem;
+        }
+        .sidebar-nav .submenu .nav-link {
+            padding-left: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 侧边栏 -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column sidebar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home me-2"></i>仪表板
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#userSubmenu" role="button" aria-expanded="true" aria-controls="userSubmenu">
+                                <i class="fas fa-users me-2"></i>用户管理
+                            </a>
+                            <ul class="nav submenu collapse show" id="userSubmenu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-user-plus me-2"></i>添加用户</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-user-edit me-2"></i>编辑用户</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#contentSubmenu" role="button" aria-expanded="true" aria-controls="contentSubmenu">
+                                <i class="fas fa-file-alt me-2"></i>内容管理
+                            </a>
+                            <ul class="nav submenu collapse show" id="contentSubmenu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-plus-square me-2"></i>添加内容</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-edit me-2"></i>编辑内容</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog me-2"></i>系统设置
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- 主要内容区域 -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">仪表板</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">分享</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            本周
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <h2>欢迎来到后台管理系统</h2>
+                    <p>这里是您的主要内容区域。您可以根据需要添加图表、表格或其他组件。</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
